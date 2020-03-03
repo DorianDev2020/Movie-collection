@@ -18,11 +18,11 @@ namespace WebAPISample.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Movie>().HasData
             (
-             new Movie { MovieId = 1, Title = "The Departed", Genre = "Drama", Director = "Martin Scorsese" },
-             new Models.Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan" },
-             new Models.Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan" },
-             new Models.Movie { MovieId = 4, Title = "Pineapple Express", Genre = "Comedy", Director = "David Gordon Green" },
-             new Models.Movie { MovieId = 5, Title = "Die Hard", Genre = "Action", Director = "John McTiernan" }
+             new Movie { MovieId = 1, Title = "The Departed", Genre = "Drama", Director = "Martin Scorsese", LeadRole = "Leonardo DiCaprio", SupportingRole = "Jack Nicholson" },
+             new Models.Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan", LeadRole = "Christian Bale", SupportingRole = "Heath Ledger" },
+             new Models.Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan", LeadRole = "Leonardo DiCaprio" },
+             new Models.Movie { MovieId = 4, Title = "Pineapple Express", Genre = "Comedy", Director = "David Gordon Green", LeadRole = "Seth Rogan", SupportingRole = "James Franco" },
+             new Models.Movie { MovieId = 5, Title = "Die Hard", Genre = "Action", Director = "John McTiernan", LeadRole = "Bruce Willice", SupportingRole = "Bonnie Bedelia" }
              );
         }
     }
