@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPISample.Data;
 using WebAPISample.Models;
 
-
 namespace WebAPISample.Controllers
 {
     [Route("api/[controller]")]
@@ -19,49 +18,57 @@ namespace WebAPISample.Controllers
         {
             _context = context;
         }
-        // GET api/movie
+        // GET: api/Movie
         [HttpGet]
         public IEnumerable<Movie> Get()
         {
-            var moviesArray = _context.Movies.ToArray();
-            return moviesArray;
+            // Retrieve all movies from db logic
+            var movies = _context.Movies.ToArray();
+            return movies;
         }
 
-        // GET api/movie/5
-        [HttpGet("{id}")]
+        // GET: api/Movie/5
+        [HttpGet("{id}", Name = "Get")]
         public Movie Get(int id)
         {
-            var value = _context.Movies.Find(id);
-            return value;
+            // Retrieve movie by id from db logic
+            Movie selectedMovie = _context.Movies.Find(id);
+            return selectedMovie;
         }
 
-        // POST api/movie
+        // POST: api/Movie
         [HttpPost]
-        public IActionResult Post([FromBody]Movie value)
+        public void Post([FromBody] Movie movie)
         {
-            _context.Movies.Add(value);
-            _context.SaveChanges();
-            return Ok(value);
-        }
-
-        // PUT api/movie/5
-        [HttpPut]
-        public void Put([FromBody]Movie movie)
-        {
-            var newMovie = _context.Movies.Where(a => a.MovieId == movie.MovieId).SingleOrDefault();
-
-            newMovie.Title = movie.Title;
-            newMovie.Genre = movie.Genre;
-            newMovie.Director = movie.Director;
+            // Create movie in db logic
+            _context.Add(movie);
             _context.SaveChanges();
         }
 
-        // DELETE api/movie/5
-        [HttpDelete]
-        public void Delete([FromBody]Movie movie)
+        // PUT: api/Movie/5
+        [HttpPut("{id}")]
+        public void Put([FromBody] Movie movie)
         {
-            _context.Movies.Remove(movie);
+            // Update movie in db logic
+
+            var movieToChange = _context.Movies.Find(movie.MovieId);
+
+            movieToChange.Title = movie.Title;
+            movieToChange.Director = movie.Director;
+            movieToChange.Genre = movie.Genre;
             _context.SaveChanges();
+
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Movies.Remove(movie);
+                _context.SaveChanges();
+            }
         }
     }
 }
